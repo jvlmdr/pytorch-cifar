@@ -12,6 +12,7 @@ import wandb
 
 import os
 import argparse
+import math
 
 import models
 from utils import progress_bar
@@ -183,3 +184,7 @@ for epoch in range(start_epoch, start_epoch+args.epochs):
     }
     wandb.log(metrics, step=epoch + 1)
     scheduler.step()
+
+    train_loss = train_metrics['loss']
+    if not math.isfinite(train_loss):
+        raise ValueError('loss not finite', train_loss)
