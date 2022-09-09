@@ -1,0 +1,19 @@
+program: main.py
+method: grid
+parameters:
+  lr:
+    value: 0.1
+  mom:
+    value: 0.9
+  wd:
+    value: 5e-4
+  epochs:
+    value: 20
+  arch:
+    value: PreActResNet18
+  dataset:
+    value: CIFAR10
+  train_aug:
+    values: [none, cifar]
+  seed:
+    values: [0, 1, 2, 3, 4]
