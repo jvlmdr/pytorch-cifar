@@ -4,6 +4,8 @@ Reference:
 [1] Kaiming He, Xiangyu Zhang, Shaoqing Ren, Jian Sun
     Identity Mappings in Deep Residual Networks. arXiv:1603.05027
 '''
+from functools import partial
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -94,20 +96,15 @@ class PreActResNet(nn.Module):
         return out
 
 
-def PreActResNet18():
-    return PreActResNet(PreActBlock, [2,2,2,2])
+PreActResNet18 = partial(PreActResNet, PreActBlock, [2,2,2,2])
 
-def PreActResNet34():
-    return PreActResNet(PreActBlock, [3,4,6,3])
+PreActResNet34 = partial(PreActResNet, PreActBlock, [3,4,6,3])
 
-def PreActResNet50():
-    return PreActResNet(PreActBottleneck, [3,4,6,3])
+PreActResNet50 = partial(PreActResNet, PreActBottleneck, [3,4,6,3])
 
-def PreActResNet101():
-    return PreActResNet(PreActBottleneck, [3,4,23,3])
+PreActResNet101 = partial(PreActResNet, PreActBottleneck, [3,4,23,3])
 
-def PreActResNet152():
-    return PreActResNet(PreActBottleneck, [3,8,36,3])
+PreActResNet152 = partial(PreActResNet, PreActBottleneck, [3,8,36,3])
 
 
 def test():

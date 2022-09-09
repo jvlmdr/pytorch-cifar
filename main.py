@@ -69,10 +69,14 @@ testloader = torch.utils.data.DataLoader(
 
 # classes = ('plane', 'car', 'bird', 'cat', 'deer',
 #            'dog', 'frog', 'horse', 'ship', 'truck')
+num_classes = {
+    'CIFAR10': 10,
+    'CIFAR100': 100,
+}[args.dataset]
 
 # Model
 print('==> Building model..')
-net = model_fn()
+net = model_fn(num_classes=num_classes)
 # net = models.VGG('VGG19')
 # net = models.ResNet18()
 # net = models.PreActResNet18()

@@ -1,4 +1,6 @@
 '''VGG11/13/16/19 in Pytorch.'''
+from functools import partial
+
 import torch
 import torch.nn as nn
 
@@ -12,10 +14,10 @@ cfg = {
 
 
 class VGG(nn.Module):
-    def __init__(self, vgg_name):
+    def __init__(self, vgg_name, num_classes=10):
         super(VGG, self).__init__()
         self.features = self._make_layers(cfg[vgg_name])
-        self.classifier = nn.Linear(512, 10)
+        self.classifier = nn.Linear(512, num_classes)
 
     def forward(self, x):
         out = self.features(x)
@@ -36,6 +38,12 @@ class VGG(nn.Module):
                 in_channels = x
         layers += [nn.AvgPool2d(kernel_size=1, stride=1)]
         return nn.Sequential(*layers)
+
+
+VGG11 = partial(VGG, 'VGG11')
+VGG13 = partial(VGG, 'VGG13')
+VGG16 = partial(VGG, 'VGG16')
+VGG19 = partial(VGG, 'VGG19')
 
 
 def test():
